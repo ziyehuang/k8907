@@ -1,0 +1,53 @@
+[
+	//choice
+	{
+	  [
+		  {
+			"id":1,
+			"src":"images/index/choice-1.jpg",
+			"title":"秋季干燥怎么办？三招教你从内到外舒适防燥~",
+			"des":"这是献给申冬奥代表团凯旋 机场举行欢迎仪式的",
+			"author":"靠脸吃饭",
+			"href":""
+		  },
+		  {
+			"id":1,
+			"src":"images/index/choice-1.jpg",
+			"title":"秋季干燥怎么办？三招教你从内到外舒适防燥~",
+			"des":"这是献给申冬奥代表团凯旋 机场举行欢迎仪式的",
+			"author":"靠脸吃饭",
+			"href":""
+		  },
+		  {
+			"id":1,
+			"src":"images/index/choice-1.jpg",
+			"title":"秋季干燥怎么办？三招教你从内到外舒适防燥~",
+			"des":"这是献给申冬奥代表团凯旋 机场举行欢迎仪式的",
+			"author":"靠脸吃饭",
+			"href":""
+		  },
+		  {
+			"id":1,
+			"src":"images/index/choice-1.jpg",
+			"title":"秋季干燥怎么办？三招教你从内到外舒适防燥~",
+			"des":"这是献给申冬奥代表团凯旋 机场举行欢迎仪式的",
+			"author":"靠脸吃饭",
+			"href":""
+		  },
+		  {
+			"id":1,
+			"src":"images/index/choice-1.jpg",
+			"title":"秋季干燥怎么办？三招教你从内到外舒适防燥~",
+			"des":"这是献给申冬奥代表团凯旋 机场举行欢迎仪式的",
+			"author":"靠脸吃饭",
+			"href":""
+		  },
+	]
+	},
+	//togirl
+	{},
+	//tofriend
+	{},
+	//toparents
+	{}
+]
