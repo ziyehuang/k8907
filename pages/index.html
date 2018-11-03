@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../common/swiper-3.4.2.min.css">
+    <script src="../common/zepto.min.js"></script>
+    <script src="../common/remstyle.js"></script>
+    <title>首页</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            font-size: 100%;
+            color: #8B7F80;
+            background: #F8F4F3;
+        }
+        ul li{
+            list-style: none;
+        }
+        a{ text-decoration: none;color: #8B7F80;}
+        .clear{
+            clear: both;
+        }
+
+        /* ----------------顶端------------- */
+        nav{
+            width: 100%;
+            background: #FDFDFD;
+        }
+        /* ----------------------搜索栏一行----------------------- */
+        nav .nav{
+            width: 95%;
+            display: flex;
+            margin: 0 auto;
+            text-align: center;
+            padding: 1.3rem 0;
+        }
+        .nav span{
+            display: inline-block;
+            height: 4rem;
+            line-height: 4rem;
+        }
+        .nav span img{
+            height: 3rem;
+            vertical-align: middle;
+        }
+        .nav input{
+            width: 70%;
+            height: 4rem;
+            margin: 0 1.5rem;
+            outline: none;
+            border: 1px solid #F8F4F3;
+            border-radius: 2rem;
+            box-sizing: border-box;
+            text-align: center;
+            text-indent: 2rem;
+            font-size: 1.6rem;
+            background: url(../images/index/icon_search.png) no-repeat  15% center,#F8F4F3;
+            background-size: 3.5rem;
+        }
+        /* ---------------------小菜单-------------------- */
+        nav .nav-menu{
+            width: 100%;
+            display: flex;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .nav-menu ul{
+            width: 60%;
+            height: 4rem;
+            margin-top: 1.6rem;
+            line-height: 3rem;
+            display: flex;
+        }
+        .nav-menu ul li{
+            flex: 1;
+            height: 4rem;
+            line-height: 4rem;
+            float: left;
+            font-size: 1.65rem;
+        }
+        .nav-menu ul li a{
+            display: inline-block;
+            height: 4rem;
+        }
+        .nav-menu ul li a.on{
+            color: #F82E50;
+            font-weight: bold;
+            border-bottom: 3px solid #F82E50;
+        }
+        /* --------------幻灯片------------------- */
+        .swiper-container-son{
+            width: 100%;
+            height: 20rem;
+            overflow: hidden;
+            margin-top: 1.6rem;
+        }
+        .swiper-slide img{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        /* --------------礼物分类------------------- */
+        .sort{
+            width: 100%;
+            background: #FEFFFE;
+            margin-top: 1rem;
+        }
+        .sort a{
+            font-size: 1.4rem;
+        }
+        .sort ul{
+            width: 100%;
+            height: 10rem;
+            margin: 0 auto;
+            display: flex;
+            text-align: center;
+            line-height: 10rem;
+            justify-content: space-between;
+        }
+        .sort ul li{
+            flex: 1;
+            padding-top: 2.5rem;
+        }
+        .sort ul li:nth-child(1){
+            background: url(../images/index/bai.jpg) no-repeat center 0.8rem;
+            background-size: 6.5rem;
+        }
+        .sort ul li:nth-child(2){
+            background: url(../images/index/chuang.jpg) no-repeat center 0.8rem;
+            background-size: 6.5rem;
+            border-right: 1px solid #F8F4F3;
+            border-left: 1px solid #F8F4F3;
+        }
+        .sort ul li:nth-child(3){
+            background: url(../images/index/mei.jpg) no-repeat center 0.8rem;
+            background-size: 6.5rem;
+        }
+        /* -----------------主要内容---------------- */
+        .containerWarp,.container .containerImg,.container .containerImg img{
+            width: 100%;
+        }
+        .container{
+            width: 100%;
+            margin-top: 1.6rem;
+            background: #ffffff;
+        }
+        .containerInner{
+            width: 95%;
+            margin: 0 auto;
+        }
+        .container .author{
+            width: 100%;
+            height: 7rem;
+            padding-top: 0.5rem;
+            background: url("../images/index/author01.jpg") no-repeat 3px;
+            background-size: 4rem auto;
+        }
+        .container .author>p{
+            padding-left: 5rem;
+        }
+        .container .name{
+            font-size: 1.9rem;
+            color: #4D4042;
+            font-weight: 400;
+            padding-top: 1rem;
+        }
+        .container .namePro,.container .pro,.container .bottom{
+            font-size: 1.5rem;
+        }
+        .container .title{
+            font-size: 2.2rem;
+            line-height: 2.2rem;
+            font-weight: 400;
+            color: #4D4042;
+            margin-top: 1.6rem;
+        }
+        .container .pro,.container .bottom{
+            line-height: 5rem;
+        }
+        /*----------------------尾部----------------------*/
+        floor{
+            width: 100%;
+            background: #ffffff;
+            position: fixed;
+            bottom: 0px;
+            z-index: 2;
+        }
+        floor .floor{
+            width: 100%;
+            height: 7rem;
+            border-top: 1px solid #F3F3F3;
+        }
+        floor .floor a{
+            font-size: 1.6rem;
+            width: 100%;
+            vertical-align: bottom;
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+        }
+        floor .floor ul{
+            display: flex;
+            height: 100%;
+        }
+        floor .floor ul li{
+            float: left;
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+        floor .floor ul li.select a{
+            color: #FE4258;
+        }
+        floor .floor ul li#home.select{
+            background: url("../common/imgs/ic_tab_home_selected.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#home{
+            background: url("../common/imgs/ic_tab_home_normal.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#profile.select{
+            background: url("../common/imgs/ic_tab_home_selected.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#profile{
+            background: url("../common/imgs/ic_tab_profile_normal.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#category.select{
+            background: url("../common/imgs/ic_tab_home_selected.png") no-repeat center 3px;
+            background-size: 4.5rem;
+        }
+        floor .floor ul li#category{
+            background: url("../common/imgs/ic_tab_category_normal.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#rank.select{
+            background: url("../common/imgs/ic_tab_home_selected.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#rank{
+            background: url("../common/imgs/ic_tab_rank_normal.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <nav>
+        <!-- 搜索栏一行 -->
+        <div class="nav">
+            <span class="logo-title"><img src="../images/index/logo_title_c.png" alt="logo_title_c"></span>
+            <input type="text" class="search" placeholder="选份走心好礼送给Ta">
+            <span class="scan"><img src="../images/index/icon_scan_red.png" alt="icon_scan_red" style="height:2.5rem;"></span>
+        </div>
+        <!-- 小菜单 -->
+        <div class="nav-menu">
+            <ul>
+                <li><a href="javascript:;" class="on">精选</a></li>
+                <li><a href="javascript:;">送女友</a></li>
+                <li><a href="javascript:;">送基友</a></li>
+                <li><a href="javascript:;">送长辈</a></li>
+                <div class="clear"></div>
+            </ul>
+        </div>
+    </nav>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <!-- 幻灯片 -->
+                <div class="swiper-container-son">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><img src="../images/index/a.jpg" alt=""></div>
+                        <div class="swiper-slide"><img src="../images/index/b.jpg" alt=""></div>
+                        <div class="swiper-slide"><img src="../images/index/c.jpg" alt=""></div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <div class="sort">
+                    <ul>
+                        <li><a href="">百万礼物</a></li>
+                        <li><a href="">创意礼物</a></li>
+                        <li><a href="">美味礼物</a></li>
+                    </ul>
+                </div>
+                <div class="containerWarp">
+                    <ul>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice01.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author02.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice02.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author03.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice03.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author04.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice04.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice01.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author02.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice02.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author03.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice03.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author04.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice04.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="containerWarp">
+                    <ul>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice01.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author02.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice02.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author03.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice03.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author04.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice04.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice01.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author02.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice02.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author03.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice03.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author04.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice04.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="containerWarp">
+                    <ul>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author03.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice03.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author04.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice04.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice01.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author02.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice02.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author03.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice03.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author04.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice04.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice01.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author02.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice02.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="containerWarp">
+                    <ul>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author02.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice02.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author03.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice03.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author04.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice04.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice01.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author02.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice02.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author03.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice03.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author" style="background: url('../images/index/author04.jpg') no-repeat 3px;background-size: 4rem auto">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice04.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="container">
+                            <div class="containerInner">
+                                <div class="author">
+                                    <p class="name">叫我小公举</p>
+                                    <p class="namePro">家具小物收集爱好者</p>
+                                </div>
+                                <div class="containerImg">
+                                    <img src="../images/index/choice01.jpg" alt="">
+                                </div>
+                                <p class="title">只带30元逛宜家，这些北欧风好物带回家</p>
+                                <p class="pro">这些物美价廉的好选择让人忍不住心空！</p>
+                                <hr style="color: rgba(240,240,240,.4);">
+                                <p class="bottom">
+                                    <span style="float: left">栏目 解忧杂货铺</span>
+                                    <span style="float: right">❤1414</span>
+                                <div class="clear"></div>
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <floor>
+        <div class="floor">
+            <ul>
+                <li id="home" class="select"><a href="index.html">首页</a></li>
+                <li id="rank"><a href="rank.html">榜单</a></li>
+                <li id="category"><a href="category.html">分类</a></li>
+                <li id="profile"><a href="mine.html">我的</a></li>
+            </ul>
+        </div>
+    </floor>
+
+    <script src="../common/jquery-3.3.1.min.js"></script>
+    <script src="../common/swiper-3.4.2.min.js"></script>
+    <script>
+        $(function(){
+            //跳转页面
+            var pages = ["index.html","rank.html","category.html","mine.html"];
+            $("div.floor ul li").click(function () {
+                window.location.href = pages[$(this).index()];
+                $(this).addClass("select").siblings().removeClass("select");
+            })
+
+            // 幻灯片
+            var mySwiper = new Swiper('.swiper-container',{
+                onSlideChangeEnd: function(swiper){
+                    $('.nav-menu ul li a').eq(swiper.activeIndex).addClass('on').parent().siblings().children("a").removeClass('on');
+                }
+            });
+            $('.nav-menu ul li').on('click',function () {
+                mySwiper.slideTo($(this).index());
+                $(this).children("a").addClass('on').siblings().removeClass('on');
+            })
+            var mySwiperSon = new Swiper(".swiper-container-son",{
+                autoplay:1500,
+                loop:true,
+                autoplayDisableOnInteraction : false,
+                // 如果需要分页器
+                pagination: '.swiper-pagination',
+            })
+            //选择最后一个li，让其离底面距离为floor高度
+            $("li.container").last().css("margin-bottom","9.5rem");
+        })
+        
+    </script>
+</body>
+</html>

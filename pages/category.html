@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../common/swiper-3.4.2.min.css">
+    <script src="../common/jquery-3.3.1.min.js"></script>
+    <script src="../common/zepto.min.js"></script>
+    <script src="../common/remstyle.js"></script>
+    <script src="../common/swiper-3.4.2.min.js"></script>
+    <title>分类</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            font-size: 100%;
+            color: #8B7F80;
+            background: #F8F4F3;
+        }
+        ul li{
+            list-style: none;
+        }
+        a{ text-decoration: none;color: #8B7F80;}
+        .clear{
+            clear: both;
+        }
+        /*----------------------尾部----------------------*/
+        floor{
+            width: 100%;
+            background: #ffffff;
+            position: fixed;
+            bottom: 0px;
+            z-index: 2;
+        }
+        floor .floor{
+            width: 100%;
+            height: 7rem;
+            border-top: 1px solid #F3F3F3;
+        }
+        floor .floor a{
+            font-size: 1.6rem;
+            width: 100%;
+            vertical-align: bottom;
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+        }
+        floor .floor ul{
+            display: flex;
+            height: 100%;
+        }
+        floor .floor ul li{
+            float: left;
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+        floor .floor ul li a{
+            display: inline-block;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 4.5rem;
+        }
+        floor .floor ul li.select a{
+            color: #FE4258;
+        }
+        floor .floor ul li#home.select{
+            background: url("../common/imgs/ic_tab_home_selected.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#home{
+            background: url("../common/imgs/ic_tab_home_normal.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#profile.select{
+            background: url("../common/imgs/ic_tab_home_selected.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#profile{
+            background: url("../common/imgs/ic_tab_profile_normal.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#category.select{
+            background: url("../common/imgs/ic_tab_home_selected.png") no-repeat center 3px;
+            background-size: 4.5rem;
+        }
+        floor .floor ul li#category{
+            background: url("../common/imgs/ic_tab_category_normal.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#rank.select{
+            background: url("../common/imgs/ic_tab_home_selected.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#rank{
+            background: url("../common/imgs/ic_tab_rank_normal.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        /*----------------内容---------------*/
+        nav{
+            width: 100%;
+            background: #ffffff;
+            overflow: hidden;
+        }
+        nav>ul{
+            width: 30%;
+            margin: 0 auto;
+            height: 5rem;
+            display: flex;
+        }
+        nav>ul li.selected a{
+            color: #F5314A;
+            display: inline-block;
+            border-bottom: 3px solid #F5314A;
+            height: 90%;
+        }
+        nav>ul li{
+            flex: 1;
+            float: left;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+            line-height: 5rem;
+        }
+        nav>ul li a{
+            color: #2D161C;
+        }
+        .search{
+            width: 100%;
+            background: #ffffff;
+            height: 7rem;
+            padding: 1rem;
+            line-height: 5rem;
+            box-sizing: border-box;
+        }
+        .search>input{
+            width: 80%;
+            height: 4rem;
+            transform: translateX(15%);
+            border: none;
+            border-radius: 2rem;
+            box-shadow: 0px 0px 0.1rem #F9F4F4;
+            text-align: center;
+            text-indent: 2rem;
+            font-size: 1.4rem;
+            background: url("../images/category/icon_searched.png") no-repeat 25% center,#F9F4F4;
+            background-size: 2rem;
+        }
+        /*-----------------栏目--------------*/
+        .strategy{
+            width: 100%;
+            height: 43rem;
+            background: #ffffff;
+            overflow: hidden;
+        }
+        .form{
+            width: 100%;
+            background: #ffffff;
+            margin: 1rem 0;
+            padding-bottom: 1rem;
+        }
+        .strategy .title,.form .title{
+            width: 95%;
+            margin: 0 auto;
+            height: 5rem;
+        }
+        .strategy .title span,.form .title span{
+            line-height: 5rem;
+            font-size: 1.4rem;
+        }
+        .strategy .title span:nth-child(1),.form .title span:nth-child(1){
+            float: left;
+        }
+        .strategy .title span:nth-child(2),.form .title span:nth-child(2){
+            float: right;
+            font-weight: 400;
+            color: #5B4949;
+            padding-right: 2rem;
+            background: url("../images/category/icon_btn_move_right.png") no-repeat right center;
+            background-size: 2rem;
+        }
+        .strategy .strategyInner{
+            width: 95%;
+            margin: 0 auto;
+        }
+        .strategy .strategyInner>ul{
+            width: 240%;
+            overflow-y: scroll;
+        }
+        .strategy .strategyInner>ul li{
+            width: 33.33333333333333333%;
+            height: 10rem;
+            float: left;
+            margin: 1rem 0;
+        }
+        .strategy .strategyInner>ul li .product{
+            width: 100%;
+            height: 100%;
+        }
+        .strategy .strategyInner>ul li .product>img{
+            height: 100%;
+        }
+        .strategy .strategyInner>ul li .product .txt{
+            float: right;
+        }
+        .strategy .strategyInner>ul li .product .txt p{
+            display: inline-block;
+            width: 500%;
+            font-size: 1.8rem;
+            margin-top: 2rem;
+        }
+        .strategy .strategyInner>ul li.more>div{
+            width: 12rem;
+            height: 4rem;
+            text-align: center;
+            line-height: 4rem;
+            font-size: 1.6rem;
+            color: #EA352F;
+            border: 1px solid #EA352F;
+            transform: translateY(3rem);
+        }
+        /*---------------风格---------------*/
+        .form .content{
+            width: 95%;
+            margin: 0 auto;
+        }
+        .form .content>ul{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .form .content>ul li{
+            width: 48%;
+            float: left;;
+        }
+        .form .content>ul li img{
+            width: 100%;
+        }
+        /*-----------------------单品-------------------*/
+        .titleWrap{
+            position: relative;
+            overflow: hidden;
+        }
+        ul.title{
+            width: 25%;
+            overflow-y: scroll;
+            float: left;
+            position: fixed;
+        }
+        ul.shoppings{
+            width: 75%;
+            float: right;
+            background: #ffffff;
+            position: fixed;
+            margin-left: 25%;
+        }
+        ul.title li{
+            width: 100%;
+            height: 8rem;
+            font-size: 2rem;
+            font-weight: 500;
+            line-height: 8rem;
+            text-align: center;
+            background: #F6F6F7;
+            color: #3c3c3c;
+        }
+        ul.title li.choosed{
+            border-left: 5px solid #F24359;
+            color: #F24359;
+            background: #ffffff;
+            box-sizing: border-box;
+        }
+        ul.shoppingInner{
+            width: 100%;
+            height: 15rem;
+            display: flex;
+            padding-bottom: 2rem;
+        }
+        ul.shoppingInner li{
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+        ul.shoppingInner li>p{
+            height: 5rem;
+            width: 100%;
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            bottom: 1.5rem;
+            font-size: 1.6rem;
+            line-height: 5rem;
+          }
+        ul.shoppingInner li>img{
+            width: 80%;
+        }
+        /*-------------分割线------------*/
+        p.line{
+            width: 95%;
+            border: 1px solid rgba(198,198,198,.3);
+            position: relative;
+            margin: 3rem auto;
+        }
+        p.line>span{
+            width: 26%;
+            display: inline-block;
+            font-size: 1.6rem;
+            text-align: center;
+            position: absolute;
+            left: 38%;
+            top: -1.5rem;
+            background: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <ul>
+        <li class="selected"><a href="javascript:;">攻略</a></li>
+        <li><a href="javascript:;">单品</a></li>
+    </ul>
+</nav>
+<div class="search">
+    <input type="text" placeholder="选份走心的礼物送给Ta">
+</div>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <div class="strategy">
+                <div class="title">
+                    <span>栏目</span>
+                    <span>查看全部</span>
+                    <div class="clear"></div>
+                </div>
+                <div class="strategyInner">
+                    <ul>
+                        <li>
+                            <div class="product">
+                                <img src="../images/category/type1_03.jpg" alt="">
+                                <div class="txt">
+                                    <p>鞋包研究所</p>
+                                    <p>Dr.Bag</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="product">
+                                <img src="../images/category/type1_06.jpg" alt="">
+                                <div class="txt">
+                                    <p>鞋包研究所</p>
+                                    <p>Dr.Bag</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="product">
+                                <img src="../images/category/type1_08.jpg" alt="">
+                                <div class="txt">
+                                    <p>鞋包研究所</p>
+                                    <p>Dr.Bag</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="product">
+                                <img src="../images/category/type1_03.jpg" alt="">
+                                <div class="txt">
+                                    <p>鞋包研究所</p>
+                                    <p>Dr.Bag</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="product">
+                                <img src="../images/category/type1_06.jpg" alt="">
+                                <div class="txt">
+                                    <p>鞋包研究所</p>
+                                    <p>Dr.Bag</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="product">
+                                <img src="../images/category/type1_08.jpg" alt="">
+                                <div class="txt">
+                                    <p>鞋包研究所</p>
+                                    <p>Dr.Bag</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="product">
+                                <img src="../images/category/type1_03.jpg" alt="">
+                                <div class="txt">
+                                    <p>鞋包研究所</p>
+                                    <p>Dr.Bag</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="product">
+                                <img src="../images/category/type1_06.jpg" alt="">
+                                <div class="txt">
+                                    <p>鞋包研究所</p>
+                                    <p>Dr.Bag</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="more">
+                            <div>点击查看更多</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form">
+                <div class="title">
+                    <span>品类</span>
+                    <span>查看全部</span>
+                    <div class="clear"></div>
+                </div>
+                <div class="content">
+                    <ul>
+                        <li><img src="../images/category/type1_11.jpg" alt=""></li>
+                        <li><img src="../images/category/type1_13.jpg" alt=""></li>
+                    </ul>
+                    <ul>
+                        <li><img src="../images/category/type1_17.jpg" alt=""></li>
+                        <li><img src="../images/category/type1_18.jpg" alt=""></li>
+                    </ul>
+                    <ul>
+                        <li><img src="../images/category/type1_21.jpg" alt=""></li>
+                        <li><img src="../images/category/type1_22.jpg" alt=""></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form">
+                <div class="title">
+                    <span>风格</span>
+                    <span>查看全部</span>
+                    <div class="clear"></div>
+                </div>
+                <div class="content">
+                    <ul>
+                        <li><img src="../images/category/type1_25.jpg" alt=""></li>
+                        <li><img src="../images/category/type1_27.jpg" alt=""></li>
+                    </ul>
+                    <ul>
+                        <li><img src="../images/category/type1_31.jpg" alt=""></li>
+                        <li><img src="../images/category/type1_32.jpg" alt=""></li>
+                    </ul>
+                    <ul>
+                        <li><img src="../images/category/type1_35.jpg" alt=""></li>
+                        <li><img src="../images/category/type1_36.jpg" alt=""></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form">
+                <div class="title">
+                    <span>对象</span>
+                    <span>查看全部</span>
+                    <div class="clear"></div>
+                </div>
+                <div class="content">
+                    <ul>
+                        <li><img src="../images/category/type1_39.jpg" alt=""></li>
+                        <li><img src="../images/category/type1_40.jpg" alt=""></li>
+                    </ul>
+                    <ul>
+                        <li><img src="../images/category/type1_43.jpg" alt=""></li>
+                        <li><img src="../images/category/type1_44.jpg" alt=""></li>
+                    </ul>
+                    <ul>
+                        <li><img src="../images/category/type1_47.jpg" alt=""></li>
+                        <li><img src="../images/category/type1_48.jpg" alt=""></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide titleWrap">
+            <ul class="title">
+                <li class="choosed">热门分类</li>
+                <li>个性配饰</li>
+                <li>温暖家居</li>
+                <li>美味厨房</li>
+                <li>美味礼物</li>
+                <li>数码小物</li>
+                <li>创意文具</li>
+                <li>美容护肤</li>
+                <li>精致彩妆</li>
+                <li>运动户外</li>
+                <li>身体保健</li>
+                <li>女装</li>
+                <li>箱包</li>
+                <li>女鞋</li>
+                <li>男装</li>
+                <li>男鞋</li>
+                <li>母婴</li>
+            </ul>
+            <ul class="shoppings">
+                <li>
+                    <ul class="shoppingInner" style="height: 8rem"></ul>
+                    <ul class="shoppingInner">
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_03.jpg" alt="">
+                            <p>智能设备</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_05.jpg" alt="">
+                            <p>鲜花蛋糕</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_07.jpg" alt="">
+                            <p>书</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="shoppingInner">
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_34.jpg" alt="">
+                            <p>模型拼图</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_12.jpg" alt="">
+                            <p>毛绒公仔</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_13.jpg" alt="">
+                            <p>动漫/明星周边</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="shoppingInner">
+                        <li style="width: 33.33333333333%">
+                            <img src="../images/category/shoppings/shopping1_16.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </li>
+                <p class="line"><span>个性配饰</span></p>
+                <li>
+                    <ul class="shoppingInner">
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_18.jpg" alt="">
+                            <p>智能设备</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_19.jpg" alt="">
+                            <p>鲜花蛋糕</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_20.jpg" alt="">
+                            <p>书</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="shoppingInner">
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_24.jpg" alt="">
+                            <p>模型拼图</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_25.jpg" alt="">
+                            <p>毛绒公仔</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_26.jpg" alt="">
+                            <p>动漫/明星周边</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="shoppingInner">
+                        <li style="width: 33.33333333333%">
+                            <img src="../images/category/shoppings/shopping1_30.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_31.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_32.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="shoppingInner">
+                        <li style="width: 33.33333333333%">
+                            <img src="../images/category/shoppings/shopping1_36.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_37.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                        <li></li>
+                    </ul>
+                </li>
+                <p class="line"><span>个性配饰</span></p>
+                <li>
+                    <ul class="shoppingInner">
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_41.jpg" alt="">
+                            <p>智能设备</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_40.jpg" alt="">
+                            <p>鲜花蛋糕</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_42.jpg" alt="">
+                            <p>书</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="shoppingInner">
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_46.jpg" alt="">
+                            <p>模型拼图</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_47.jpg" alt="">
+                            <p>毛绒公仔</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_48.jpg" alt="">
+                            <p>动漫/明星周边</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="shoppingInner">
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_52.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_53.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_54.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="shoppingInner">
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_59.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_61.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                        <li></li>
+                    </ul>
+                </li>
+                <p class="line"><span>温暖家居</span></p>
+                <li>
+                    <ul class="shoppingInner">
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_64.jpg" alt="">
+                            <p>智能设备</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_65.jpg" alt="">
+                            <p>鲜花蛋糕</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_66.jpg" alt="">
+                            <p>书</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="shoppingInner">
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_70.jpg" alt="">
+                            <p>模型拼图</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_72.jpg" alt="">
+                            <p>毛绒公仔</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_73.jpg" alt="">
+                            <p>动漫/明星周边</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="shoppingInner">
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_77.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </li>
+                <p class="line"><span>美味厨房</span></p>
+                <li>
+                    <ul class="shoppingInner">
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_80.jpg" alt="">
+                            <p>智能设备</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_81.jpg" alt="">
+                            <p>鲜花蛋糕</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_82.jpg" alt="">
+                            <p>书</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="shoppingInner">
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_86.jpg" alt="">
+                            <p>模型拼图</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_87.jpg" alt="">
+                            <p>毛绒公仔</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_88.jpg" alt="">
+                            <p>动漫/明星周边</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="shoppingInner">
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_92.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_94.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_95.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="shoppingInner">
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_101.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_99.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_100.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                    </ul>
+                </li>
+                <p class="line"><span>美味礼物</span></p>
+                <li>
+                    <ul class="shoppingInner">
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_106.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_107.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_108.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="shoppingInner">
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_112.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_114.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_115.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                    </ul>
+                </li>
+                <p class="line"><span>数码小物</span></p>
+                <li>
+                    <ul class="shoppingInner">
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_119.jpg" alt="">
+                            <p>智能设备</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_120.jpg" alt="">
+                            <p>鲜花蛋糕</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_121.jpg" alt="">
+                            <p>书</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="shoppingInner">
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_125.jpg" alt="">
+                            <p>模型拼图</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_126.jpg" alt="">
+                            <p>毛绒公仔</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_127.jpg" alt="">
+                            <p>动漫/明星周边</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="shoppingInner">
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_131.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_132.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                        <li>
+                            <img src="../images/category/shoppings/shopping1_133.jpg" alt="">
+                            <p>创意礼品</p>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<floor>
+    <div class="floor">
+        <ul>
+            <li id="home"><a href="index.html">首页</a></li>
+            <li id="rank"><a href="rank.html">榜单</a></li>
+            <li id="category" class="select"><a href="category.html">分类</a></li>
+            <li id="profile"><a href="mine.html">我的</a></li>
+        </ul>
+    </div>
+</floor>
+<script>
+    var mySwiper = new Swiper('.swiper-container',{
+        onSlideChangeEnd: function(swiper){
+            $('nav ul li').eq(swiper.activeIndex).addClass('selected').siblings().removeClass('selected');
+        }
+    });
+    $(function () {
+        //跳转页面
+        var pages = ["index.html","rank.html","category.html","mine.html"];
+        $("div.floor ul li").click(function () {
+            console.log(pages[$(this).index()]);
+            window.location.href = pages[$(this).index()];
+        })
+
+        $('nav ul li').on('click',function () {
+            mySwiper.slideTo($(this).index());
+            $(this).addClass('selected').siblings().removeClass('selected');
+        })
+
+        $("div.content>ul").last().css("margin-bottom","9rem");
+
+        $(window).scroll(function () {
+            if($(this).scrollTop()>1000){
+                $("ul.title").css("margin-top","500px")
+            }
+            else $("ul.title").css("margin-top","0px")
+        })
+    })
+</script>
+</body>
+</html>
