@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../common/swiper-3.4.2.min.css">
+    <script src="../common/zepto.min.js"></script>
+    <script src="../common/remstyle.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            font-size: 100%;
+            color: #8B7F80;
+            background: #F8F4F3;
+        }
+        ul li{
+            list-style: none;
+        }
+        a{ text-decoration: none;color: #8B7F80;}
+        .clear{
+            clear: both;
+        }
+
+        /*----------------------尾部----------------------*/
+        floor{
+            width: 100%;
+            background: #ffffff;
+            position: fixed;
+            bottom: 0px;
+            z-index: 2;
+        }
+        floor .floor{
+            width: 100%;
+            height: 7rem;
+            border-top: 1px solid #F3F3F3;
+        }
+        floor .floor a{
+            font-size: 1.6rem;
+            width: 100%;
+            vertical-align: bottom;
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+        }
+        floor .floor ul{
+            display: flex;
+            height: 100%;
+        }
+        floor .floor ul li{
+            float: left;
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+        floor .floor ul li.select a{
+            color: #FE4258;
+        }
+        floor .floor ul li#home.select{
+            background: url("../common/imgs/ic_tab_home_selected.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#home{
+            background: url("../common/imgs/ic_tab_home_normal.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#profile.select{
+            background: url("../common/imgs/ic_tab_home_selected.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#profile{
+            background: url("../common/imgs/ic_tab_profile_normal.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#category.select{
+            background: url("../common/imgs/ic_tab_home_selected.png") no-repeat center 3px;
+            background-size: 4.5rem;
+        }
+        floor .floor ul li#category{
+            background: url("../common/imgs/ic_tab_category_normal.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#rank.select{
+            background: url("../common/imgs/ic_tab_home_selected.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#rank{
+            background: url("../common/imgs/ic_tab_rank_normal.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        /*------------最顶部-----------*/
+        nav{
+            padding-top: 1.6rem;
+            width: 100%;
+            background: white;
+            overflow: hidden;
+        }
+        nav .nav{
+            width: 95%;
+            margin: 0 auto;
+        }
+        nav .nav .top li{
+            width: 10%;
+            height: 4rem;
+            float: left;
+        }
+        nav .nav .top li:nth-child(2){
+            width: 70%;
+            font-size: 1.8rem;
+            text-align: center;
+            line-height: 4rem;
+            color: #2D161C;
+        }
+        nav .nav .top li.setting{
+            background: url("../images/mine/icon_settings_black.png") no-repeat center;
+            background-size: 4rem;
+        }
+        nav .nav .top li.service{
+            background: url("../images/mine/icon_earphone.png") no-repeat center;
+            background-size: 4rem;
+        }
+        nav .nav .top li.sign{
+            background: url("../images/mine/btn_signin.png") no-repeat center;
+            background-size: 3rem;
+        }
+        /*----------center的nav---------*/
+        nav .nav .center li{
+            width: 20%;
+            height: 10rem;
+            float: left;
+        }
+        nav .nav .center li:nth-child(1){
+            width: 40%;
+            background: url("../images/mine/ig_profile_photo_default.png") no-repeat 0 center;
+            background-size: 8rem;
+        }
+        nav .nav .top li>img{
+            width: 100%;
+        }
+        nav .nav ul li>p{
+            color: #2D161C;
+        }
+        nav .nav .center li.score>p,nav .nav .center li.follow>p,nav .nav .center li.newMessage>p{
+            margin-top: 30%;
+            text-align: center;
+            border-right: 1px solid #F0ECEC;
+            font-size: 1.4rem;
+         }
+        nav .nav .center li.score p>span,nav .nav .center li.follow p>span,nav .nav .center li.newMessage p>span{
+            display: block;
+            font-weight: bold;
+        }
+        /*--------------底部的nav---------------*/
+        nav .nav .bottom{
+            display: flex;
+        }
+        nav .nav .bottom li{
+            text-align: center;
+            flex: 1;
+            margin: 2rem 0;
+            float: left;
+            font-size: 1.6rem;
+        }
+        nav .nav .bottom li img{
+            width: 3rem;
+            height: 3rem;
+        }
+        /*--------------内容--------------*/
+        .containerWrap{
+            margin-top: 1.6rem;
+            width: 100%;
+            height: 55rem;
+            background: #ffffff;
+            overflow: hidden;
+        }
+        .containerWrap>hr{
+            width: 100%;
+            color: rgba(243,243,243,.3);
+        }
+        .containerWrap ul{
+            width: 30%;
+            height: 5rem;
+            line-height: 5rem;
+            margin: 0 auto;
+        }
+        .containerWrap ul li{
+            font-size: 1.6rem;
+            color: #2D161C;
+            font-weight: bold;
+        }
+        .containerWrap ul li.checked{
+            position: absolute;
+            color: #FE2D49;
+            border-bottom: 3px solid #FE2D49;
+        }
+        .containerWrap ul li:nth-child(1){
+            float: left;
+        }
+        .containerWrap ul li:nth-child(2){
+            float: right;
+        }
+        .containerWrap .container{
+            width: 95%;
+            margin: 0 auto;
+            padding-top: 3rem;
+        }
+        .containerWrap .container p:nth-child(1){
+            font-size: 1.6rem;
+            color: #2D161C;
+            font-weight: 600;
+            line-height: 3rem;
+            background: url("../images/mine/ic_chevron.png") no-repeat right center;
+            background-size: auto 1.5rem;
+        }
+        .containerWrap .container p:nth-child(1)>span{
+            display: inline-block;
+            width: 3rem;
+            height: 1.6rem;
+            line-height: 2rem;
+            background: url("../images/mine/tag_default.png") no-repeat,#F3EFEE;
+            background-size: 3rem;
+        }
+        .containerWrap .container>p:last-child{
+            width: 100%;
+            height: 5rem;
+            color: #2D161C;
+            font-weight: bold;
+            line-height: 5rem;
+            font-size: 1.6rem;
+            margin-top: 2rem;
+            padding-left: 6rem;
+            background: url("../images/mine/btn_add_red.png") no-repeat 0px center;
+            background-size: 5rem;
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav">
+            <ul class="top">
+                <li class="setting"><img src="" alt=""></li>
+                <li>叶梓叶叶叶叶</li>
+                <li class="service"><img src="" alt=""></li>
+                <li class="sign"><img src="" alt=""></li>
+            </ul>
+            <ul class="center">
+                <li></li>
+                <li class="score"><p><span>2</span>积分</p></li>
+                <li class="follow"><p><span>0</span>关注</p></li>
+                <li class="newMessage"><p><span>0</span>新消息</p></li>
+                <div class="clear"></div>
+            </ul>
+            <ul class="bottom">
+                <li>
+                    <img src="../images/mine/icon_cart_grey.png" alt="">
+                    <p>购物车</p>
+                </li>
+                <li>
+                    <img src="../images/mine/icon_order_grey.png" alt="">
+                    <p>订单</p>
+                </li>
+                <li>
+                    <img src="../images/mine/icon_coupon_grey.png" alt="">
+                    <p>礼券</p>
+                </li>
+                <li>
+                    <img src="../images/mine/icon_remind_grey.png" alt="">
+                    <p>送礼提醒</p>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="containerWrap">
+        <ul>
+            <li class="checked">单品</li>
+            <li>攻略</li>
+        </ul>
+        <hr>
+        <div class="container">
+            <p>我喜欢的礼物 <span></span></p>
+            <p>共2个</p>
+            <div class="selectedImg">
+                <img src="" alt="">
+            </div>
+            <span class="add"></span><p>新建礼物清单</p>
+        </div>
+    </div>
+    <floor>
+    <div class="floor">
+        <ul>
+            <li id="home"><a href="index.html">首页</a></li>
+            <li id="rank"><a href="rank.html">榜单</a></li>
+            <li id="category"><a href="category.html">分类</a></li>
+            <li id="profile" class="select"><a href="mine.html">我的</a></li>
+        </ul>
+    </div>
+</floor>
+    <script>
+        //跳转页面
+        var pages = ["index.html","rank.html","category.html","mine.html"];
+        $("div.floor ul li").click(function () {
+            console.log(pages[$(this).index()]);
+            window.location.href = pages[$(this).index()];
+            $(this).addClass("select").siblings().removeClass("select");
+        })
+
+    </script>
+</body>
+</html>

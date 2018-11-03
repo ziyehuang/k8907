@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../common/swiper-3.4.2.min.css">
+    <script src="../common/zepto.min.js"></script>
+    <script src="../common/swiper-3.4.2.min.js"></script>
+    <script src="../common/remstyle.js"></script>
+    <title>榜单</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            font-size: 100%;
+            color: #A5A1A0;
+            background: #F8F4F3;
+        }
+        ul li{
+            list-style: none;
+        }
+        a{ text-decoration: none;color: #8B7F80;}
+        .clear{
+            clear: both;
+        }
+        /*----------------------尾部----------------------*/
+        floor{
+            width: 100%;
+            background: #ffffff;
+            position: fixed;
+            bottom: 0px;
+            z-index: 2;
+        }
+        floor .floor{
+            width: 100%;
+            height: 7rem;
+            border-top: 1px solid #F3F3F3;
+        }
+        floor .floor a{
+            font-size: 1.6rem;
+            width: 100%;
+            vertical-align: bottom;
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+        }
+        floor .floor ul{
+            display: flex;
+            height: 100%;
+        }
+        floor .floor ul li{
+            float: left;
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+        floor .floor ul li.select a{
+            color: #FE4258;
+        }
+        floor .floor ul li#home.select{
+            background: url("../common/imgs/ic_tab_home_selected.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#home{
+            background: url("../common/imgs/ic_tab_home_normal.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#profile.select{
+            background: url("../common/imgs/ic_tab_home_selected.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#profile{
+            background: url("../common/imgs/ic_tab_profile_normal.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#category.select{
+            background: url("../common/imgs/ic_tab_home_selected.png") no-repeat center 3px;
+            background-size: 4.5rem;
+        }
+        floor .floor ul li#category{
+            background: url("../common/imgs/ic_tab_category_normal.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#rank.select{
+            background: url("../common/imgs/ic_tab_home_selected.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        floor .floor ul li#rank{
+            background: url("../common/imgs/ic_tab_rank_normal.png") no-repeat center 3px;
+            background-size: 4rem;
+        }
+        /*----------------礼物榜title------------------*/
+        .title{
+            width: 100%;
+            height: 5rem;
+            padding: 1rem 0.5rem;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            background: #ffffff;
+        }
+        .title p{
+            text-align: center;
+            font-size: 2.2rem;
+            line-height: 3rem;
+            color: #2D161C;
+            font-weight: 600;
+            background: url("../images/rank/ic_action_item_share.png") no-repeat right center;
+            background-size: 3rem;
+        }
+        nav {
+            width: 100%;
+            background: #ffffff;
+        }
+        nav ul{
+            width: 100%;
+            height: 5rem;
+            display: flex;
+        }
+        nav ul li{
+            flex: 1;
+            float: left;
+            font-size: 1.8rem;
+            text-align: center;
+            line-height: 5rem;
+        }
+        nav ul li.selected a{
+            color: #F5314A;
+            display: inline-block;
+            border-bottom: 3px solid #F5314A;
+            height: 90%;
+        }
+        /*---------------主要内容--------------*/
+        .containerWarp{
+            width: 100%;
+        }
+        .containerWarp>img{
+            width: 100%;
+        }
+        .containerWarp .container{
+            width: 95%;
+            margin: 0 auto;
+        }
+        .containerWarp .container ul{
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 9rem;
+        }
+        .containerWarp .container ul li{
+            width: 47%;
+            height: 31rem;
+            float: left;
+            margin: 0.6rem;
+            background: #ffffff;
+            border-radius: 0.3rem;
+        }
+        .containerWarp .container ul li p{
+            padding-left: 1rem;
+            padding-top: 1rem;
+        }
+        .containerWarp .container ul li p.top{
+            font-size: 1.5rem;
+            color: #2D161C;
+        }
+        .containerWarp .container ul li p.red{
+            font-size: 1.5rem;
+            color: #EA352F;
+            font-weight: bold;
+            padding-top: 2rem;
+            line-height: 1.5rem;
+            letter-spacing: 1px;
+        }
+        .containerWarp .container ul li p span{
+            display: inline-block;
+            width: 3rem;
+            height: 1.8rem;
+            font-size: 1.1rem;
+            text-align: center;
+            background: #EA352F;
+            border-radius: 2px;
+            color: #ffffff;
+            font-style: italic;
+            line-height: 1.8rem;
+        }
+        .containerWarp .container ul li>img{
+            width: 100%;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="title">
+        <p>礼物榜</p>
+        <span></span>
+    </div>
+    <nav>
+        <ul>
+            <li class="selected"><a href="javascript:;">TOP100</a></li>
+            <li><a href="javascript:;">新星榜</a></li>
+            <li><a href="javascript:;">每日推荐</a></li>
+        </ul>
+
+    </nav>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="containerWarp">
+                    <img src="../images/rank/zuijia.jpg" alt="">
+                    <div class="container">
+                        <ul>
+                            <li>
+                                <img src="../images/rank/05.jpg" alt="">
+                                <p class="top"><span>TOP1</span> 送健康最实在</p>
+                                <p style="font-size: 1.4rem;">SKG 多功能按摩披肩</p>
+                                <p class="red">￥159</p>
+                            </li>
+                            <li>
+                                <img src="../images/rank/03.jpg" alt="">
+                                <p class="top"><span>TOP2</span></p>
+                                <p style="font-size: 1.4rem;">Ipluso·樱花粉钢笔礼盒</p>
+                                <p class="red">￥288</p>
+                            </li>
+                            <li>
+                                <img src="../images/rank/04.jpg" alt="">
+                                <p class="top"><span>TOP1</span> 送健康最实在</p>
+                                <p style="font-size: 1.4rem;">SKG 多功能按摩披肩</p>
+                                <p class="red">￥159</p>
+                            </li>
+                            <li>
+                                <img src="../images/rank/06.jpg" alt="">
+                                <p class="top"><span>TOP1</span> 送健康最实在</p>
+                                <p style="font-size: 1.4rem;">SKG 多功能按摩披肩</p>
+                                <p class="red">￥159</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="containerWarp">
+                    <img src="../images/rank/xinxing.jpg" alt="">
+                    <div class="container">
+                        <ul>
+                            <li>
+                                <img src="../images/rank/05.jpg" alt="">
+                                <p class="top"><span>TOP1</span> 送健康最实在</p>
+                                <p style="font-size: 1.4rem;">SKG 多功能按摩披肩</p>
+                                <p class="red">￥159</p>
+                            </li>
+                            <li>
+                                <img src="../images/rank/03.jpg" alt="">
+                                <p class="top"><span>TOP2</span></p>
+                                <p style="font-size: 1.4rem;">Ipluso·樱花粉钢笔礼盒</p>
+                                <p class="red">￥288</p>
+                            </li>
+                            <li>
+                                <img src="../images/rank/04.jpg" alt="">
+                                <p class="top"><span>TOP1</span> 送健康最实在</p>
+                                <p style="font-size: 1.4rem;">SKG 多功能按摩披肩</p>
+                                <p class="red">￥159</p>
+                            </li>
+                            <li>
+                                <img src="../images/rank/06.jpg" alt="">
+                                <p class="top"><span>TOP1</span> 送健康最实在</p>
+                                <p style="font-size: 1.4rem;">SKG 多功能按摩披肩</p>
+                                <p class="red">￥159</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="containerWarp">
+                    <img src="../images/rank/tuijian.jpg" alt="">
+                    <div class="container">
+                        <ul>
+                            <li>
+                                <img src="../images/rank/05.jpg" alt="">
+                                <p class="top"><span>TOP1</span> 送健康最实在</p>
+                                <p style="font-size: 1.4rem;">SKG 多功能按摩披肩</p>
+                                <p class="red">￥159</p>
+                            </li>
+                            <li>
+                                <img src="../images/rank/03.jpg" alt="">
+                                <p class="top"><span>TOP2</span></p>
+                                <p style="font-size: 1.4rem;">Ipluso·樱花粉钢笔礼盒</p>
+                                <p class="red">￥288</p>
+                            </li>
+                            <li>
+                                <img src="../images/rank/04.jpg" alt="">
+                                <p class="top"><span>TOP1</span> 送健康最实在</p>
+                                <p style="font-size: 1.4rem;">SKG 多功能按摩披肩</p>
+                                <p class="red">￥159</p>
+                            </li>
+                            <li>
+                                <img src="../images/rank/06.jpg" alt="">
+                                <p class="top"><span>TOP1</span> 送健康最实在</p>
+                                <p style="font-size: 1.4rem;">SKG 多功能按摩披肩</p>
+                                <p class="red">￥159</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <floor>
+    <div class="floor">
+        <ul>
+            <li id="home"><a href="index.html">首页</a></li>
+            <li id="rank" class="select"><a href="rank.html">榜单</a></li>
+            <li id="category"><a href="category.html">分类</a></li>
+            <li id="profile"><a href="mine.html">我的</a></li>
+        </ul>
+    </div>
+</floor>
+
+
+</body>
+<script>
+
+    var mySwiper = new Swiper('.swiper-container',{
+        onSlideChangeEnd: function(swiper){
+            $('nav ul li').eq(swiper.activeIndex).addClass('selected').siblings().removeClass('selected');
+        }
+    });
+    $(function(){
+        //跳转页面
+        var pages = ["index.html","rank.html","category.html","mine.html"];
+        $("div.floor ul li").click(function () {
+            console.log(pages[$(this).index()]);
+            window.location.href = pages[$(this).index()];
+        })
+
+
+        $('nav ul li').on('click',function () {
+            mySwiper.slideTo($(this).index());
+            $(this).addClass('selected').siblings().removeClass('selected');
+        })
+    })
+</script>
+</html>
